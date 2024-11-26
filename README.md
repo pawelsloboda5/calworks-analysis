@@ -68,14 +68,9 @@ python Script_python/main.py
 <table>
 <tr>
 <td>
-<img src="docs/images/income_distribution.png" alt="Income Distribution" width="400"/>
+<img src="docs/images/income_analysis.png" alt="Income Analysis" width="400"/>
 <br>
-<em>Income Distribution by Region</em>
-</td>
-<td>
-<img src="docs/images/employment_rate.png" alt="Employment Rate" width="400"/>
-<br>
-<em>Employment Rates</em>
+<em>Income Analysis by Region</em>
 </td>
 </tr>
 </table>
