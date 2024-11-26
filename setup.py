@@ -51,4 +51,11 @@ setup(
     package_data={
         "": ["config.yaml"],
     },
+    extras_require={
+        'test': [
+            'pytest>=7.3.1,<8.0.0',
+            'pytest-cov>=4.1.0',
+            'pytest-mock>=3.11.1',
+        ],
+    },
 ) 

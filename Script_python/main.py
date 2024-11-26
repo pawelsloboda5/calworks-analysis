@@ -10,8 +10,8 @@ Runs the complete analysis workflow in sequence:
 """
 import sys
 from pathlib import Path
-from utils.config import setup_logging, load_config
-from utils.data_ops import validate_dataframe
+from Script_python.utils.config import setup_logging, load_config
+from Script_python.utils.data_ops import validate_dataframe
 from visualizations.plots import generate_summary_plots
 
 def run_pipeline():
