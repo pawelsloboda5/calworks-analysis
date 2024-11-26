@@ -34,7 +34,14 @@ setup(
         "Topic :: Scientific/Engineering :: Information Analysis",
     ],
     python_requires=">=3.8",
-    install_requires=requirements,
+    install_requires=[
+        'pandas>=1.5.3,<2.0.0',
+        'numpy>=1.24.3,<2.0.0',
+        'PyYAML==6.0.1',
+        'matplotlib>=3.7.1,<4.0.0',
+        'seaborn>=0.12.2,<1.0.0',
+        'scipy>=1.10.1,<2.0.0',
+    ],
     entry_points={
         "console_scripts": [
             "calworks-analysis=main:run_pipeline",

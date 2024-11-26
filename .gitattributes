@@ -1,0 +1,23 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Python files
+*.py text diff=python
+
+# Documentation
+*.md text diff=markdown
+*.rst text
+*.txt text
+
+# YAML files
+*.yml text
+*.yaml text
+
+# Config files
+*.ini text
+*.cfg text
+*.conf text
+
+# Git files
+.gitattributes text
+.gitignore text 
