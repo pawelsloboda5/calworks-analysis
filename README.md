@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Tests](https://github.com/pawelsloboda5/calworks-analysis/actions/workflows/python-app.yml/badge.svg)
-![Coverage](https://img.shields.io/codecov/c/github/pawelsloboda5/calworks-analysis)
+[![codecov](https://codecov.io/gh/pawelsloboda5/calworks-analysis/branch/main/graph/badge.svg)](https://codecov.io/gh/pawelsloboda5/calworks-analysis)
 ![Last Commit](https://img.shields.io/github/last-commit/pawelsloboda5/calworks-analysis)
 
 <div align="center">
