@@ -17,9 +17,10 @@ def sample_data():
         'GRNTP': [2000, 2500, 1500, 1800, 1600]
     })
 
-    # Create sample person data
+    # Create sample person data with matching SERIALNO and PUMA
     person_data = pd.DataFrame({
         'SERIALNO': ['1', '1', '2', '2', '2'],
+        'PUMA': [7507, 7507, 7508, 7508, 7508],
         'PAP': [0, 0, 1000, 0, 0],
         'WAGP': [30000, 20000, 25000, 20000, 15000],
         'SEMP': [0, 0, 0, 0, 0],
