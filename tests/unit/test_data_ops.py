@@ -1,6 +1,12 @@
-import pytest
 import pandas as pd
-from Script_python.utils.data_ops import validate_dataframe, safe_numeric_conversion, filter_by_puma
+import pytest
+
+from Script_python.utils.data_ops import (
+    filter_by_puma,
+    safe_numeric_conversion,
+    validate_dataframe,
+)
+
 
 def test_validate_dataframe():
     # Create test data

@@ -4,10 +4,12 @@
 # CSF files: data/eligible_calworks_sf_households.csv, data/pca_2022.csv, data/eligible_calworks_sf_persons.csv
 # Output: eligible_calworks_sf_persons.csv
 #
-import pandas as pd
 from pathlib import Path
 
-def save_eligible_persons(person_df, eligible_households):
+import pandas as pd
+
+
+def save_eligible_persons(person_df: pd.DataFrame, eligible_households: pd.DataFrame) -> pd.DataFrame:
     """
     Filter persons under eligible households and save to a CSV.
     
@@ -41,5 +43,4 @@ if __name__ == "__main__":
     eligible_persons.to_csv(output_path, index=False)
 
     # Display summary
-    print(eligible_persons.info())
     print(eligible_persons.head())

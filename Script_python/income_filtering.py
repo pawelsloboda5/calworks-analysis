@@ -4,11 +4,13 @@
 # CSV files: data/eligible_calworks_sf_households.csv, data/pca_2022.csv
 # Output: filtered_income_metrics_households_with_full_persons.csv
 #
-import pandas as pd
 from pathlib import Path
-from utils.config import load_config
 
-def calculate_income_metrics(config):
+import pandas as pd
+from Script_python.utils.config import Config, load_config
+
+
+def calculate_income_metrics(config: Config) -> pd.DataFrame:
     """
     Calculate total employment-based and public assistance income for households
     based on the complete persons dataset.

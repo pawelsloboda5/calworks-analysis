@@ -4,11 +4,13 @@
 # CSV files: data/filtered_income_metrics_households_with_full_persons.csv, data/eligible_calworks_sf_persons.csv
 # Output: region_analysis_with_all_income.csv, top_regions_for_analysis_with_all_income.csv
 # 
-import pandas as pd
 from pathlib import Path
-from utils.config import load_config
 
-def analyze_regions(eligible_households, eligible_persons):
+import pandas as pd
+from Script_python.utils.config import load_config
+
+
+def analyze_regions(eligible_households: pd.DataFrame, eligible_persons: pd.DataFrame) -> pd.DataFrame:
     """
     Analyze regions based on household income, rent, and income-to-rent ratio.
     """

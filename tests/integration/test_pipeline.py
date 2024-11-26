@@ -1,8 +1,11 @@
-import pytest
-import pandas as pd
 from pathlib import Path
+
+import pandas as pd
+import pytest
+
 from Script_python.main import run_pipeline
 from Script_python.utils.config import load_config
+
 
 @pytest.fixture
 def sample_data():

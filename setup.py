@@ -2,7 +2,7 @@
 # This file is used to create a Python package from the Script_python directory.
 # It is used to install the package and its dependencies.
 
-from setuptools import setup, find_packages
+from setuptools import find_packages, setup
 
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -49,7 +49,7 @@ setup(
     },
     include_package_data=True,
     package_data={
-        "": ["config.yaml"],
+        "": ["config.yaml", "py.typed"],
     },
     extras_require={
         'test': [

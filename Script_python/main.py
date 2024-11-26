@@ -10,12 +10,18 @@ Runs the complete analysis workflow in sequence:
 """
 import sys
 from pathlib import Path
-from Script_python.utils.config import setup_logging, load_config
+
+from Script_python.preprocessing import (
+    aggregate_person_data,
+    calculate_eligibility,
+    load_pums_data,
+)
+from Script_python.utils.config import load_config, setup_logging
 from Script_python.utils.data_ops import validate_dataframe
-from Script_python.preprocessing import load_pums_data, aggregate_person_data, calculate_eligibility
 from Script_python.visualizations.plots import generate_summary_plots
 
-def run_pipeline():
+
+def run_pipeline() -> int:
     """Execute the complete analysis pipeline."""
     try:
         # Initialize logging and configuration

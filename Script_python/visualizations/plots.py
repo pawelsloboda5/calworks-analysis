@@ -2,16 +2,19 @@
 Visualization module for generating standard plots and charts.
 """
 import matplotlib
+
 matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
 from pathlib import Path
-from utils.config import setup_logging
+
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from Script_python.utils.config import setup_logging
+from typing import Union
 
 logger = setup_logging()
 
-def setup_plot_style():
+def setup_plot_style() -> None:
     """Configure default plot styling."""
     sns.set_theme(style="whitegrid")
     sns.set_palette("husl")
@@ -19,7 +22,7 @@ def setup_plot_style():
     plt.rcParams['axes.titlesize'] = 14
     plt.rcParams['axes.labelsize'] = 12
 
-def plot_income_distribution(df, output_dir):
+def plot_income_distribution(df: pd.DataFrame, output_dir: Union[str, Path]) -> None:
     """Generate income distribution plots."""
     setup_plot_style()
     plt.figure()
@@ -35,7 +38,7 @@ def plot_income_distribution(df, output_dir):
     plt.close()
     logger.info("Generated income distribution plot.")
 
-def plot_income_sources(df, output_dir):
+def plot_income_sources(df: pd.DataFrame, output_dir: Union[str, Path]) -> None:
     """Generate income sources comparison plot."""
     setup_plot_style()
     income_sources = [
@@ -73,7 +76,7 @@ def plot_income_sources(df, output_dir):
     plt.close()
     logger.info("Generated income sources plot.")
 
-def plot_rent_burden(df, output_dir):
+def plot_rent_burden(df: pd.DataFrame, output_dir: Union[str, Path]) -> None:
     """Generate rent burden analysis plots."""
     setup_plot_style()
     plt.figure()
@@ -89,7 +92,7 @@ def plot_rent_burden(df, output_dir):
     plt.close()
     logger.info("Generated rent burden plot.")
 
-def plot_household_stats(df, output_dir):
+def plot_household_stats(df: pd.DataFrame, output_dir: Union[str, Path]) -> None:
     """Generate household statistics plots."""
     setup_plot_style()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
@@ -113,7 +116,7 @@ def plot_household_stats(df, output_dir):
     plt.close()
     logger.info("Generated household statistics plot.")
 
-def plot_income_analysis(df, output_dir):
+def plot_income_analysis(df: pd.DataFrame, output_dir: Union[str, Path]) -> None:
     """Generate detailed income analysis plots."""
     setup_plot_style()
     fig = plt.figure(figsize=(15, 10))
@@ -213,7 +216,7 @@ def plot_income_analysis(df, output_dir):
     plt.close()
     logger.info("Generated income analysis plots.")
 
-def generate_summary_plots(region_summary, output_dir):
+def generate_summary_plots(region_summary: pd.DataFrame, output_dir: Union[str, Path]) -> None:
     """Generate all summary plots."""
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)

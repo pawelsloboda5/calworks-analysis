@@ -4,17 +4,19 @@
 # CSV files: data/hca_2022.csv, data/pca_2022.csv
 # Output: eligible_calworks_sf_households.csv
 #
-import pandas as pd
-import numpy as np
 from pathlib import Path
-from utils.config import setup_logging, load_config
-from utils.data_ops import validate_dataframe, safe_numeric_conversion
+from typing import Tuple
+
+import numpy as np
+import pandas as pd
+from Script_python.utils.config import load_config, setup_logging
+from Script_python.utils.data_ops import safe_numeric_conversion, validate_dataframe
 
 # Setup logging and load config
 logger = setup_logging()
 config = load_config()
 
-def load_pums_data(household_data_path, person_data_path):
+def load_pums_data(household_data_path: str, person_data_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
     """
     Load PUMS data for household and person records with error handling.
     
@@ -59,7 +61,7 @@ def load_pums_data(household_data_path, person_data_path):
         logger.error(f"Error loading PUMS data: {str(e)}")
         raise
 
-def aggregate_person_data(person_df):
+def aggregate_person_data(person_df: pd.DataFrame) -> pd.DataFrame:
     """
     Aggregate person-level data to household level using SERIALNO.
     """
@@ -87,7 +89,7 @@ def aggregate_person_data(person_df):
         logger.error(f"Error aggregating person data: {str(e)}")
         raise
 
-def calculate_eligibility(household_df, aggregated_person_df):
+def calculate_eligibility(household_df: pd.DataFrame, aggregated_person_df: pd.DataFrame) -> pd.DataFrame:
     """
     Determine eligibility for CalWORKs using vectorized operations.
     """

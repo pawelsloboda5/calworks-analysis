@@ -1,14 +1,16 @@
 """
 Common data operations used across the analysis pipeline.
 """
-import pandas as pd
-import numpy as np
 import logging
 from pathlib import Path
+from typing import List
+
+import numpy as np
+import pandas as pd
 
 logger = logging.getLogger(__name__)
 
-def validate_dataframe(df, required_columns, name="DataFrame"):
+def validate_dataframe(df: pd.DataFrame, required_columns: List[str], name: str = "DataFrame") -> None:
     """
     Validate that a dataframe has required columns and no null values in key fields.
     
@@ -30,7 +32,7 @@ def validate_dataframe(df, required_columns, name="DataFrame"):
     if null_counts.any():
         logger.warning(f"{name} contains null values in columns: {list(null_counts[null_counts > 0].index)}")
         
-def safe_numeric_conversion(df, columns):
+def safe_numeric_conversion(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
     """
     Safely convert columns to numeric, replacing errors with NaN.
     
@@ -43,7 +45,7 @@ def safe_numeric_conversion(df, columns):
             df[col] = pd.to_numeric(df[col], errors='coerce')
     return df 
 
-def filter_by_puma(df, puma_codes):
+def filter_by_puma(df: pd.DataFrame, puma_codes: List[int]) -> pd.DataFrame:
     """
     Filter a dataframe by PUMA codes.
     
