@@ -8,7 +8,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 with open("requirements.txt", "r", encoding="utf-8") as fh:
-    requirements = [line.strip() for line in fh if line.strip() and not line.startswith("#")]
+    requirements = [
+        line.strip() for line in fh if line.strip() and not line.startswith("#")
+    ]
 
 setup(
     name="calworks-analysis",
@@ -35,12 +37,12 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        'pandas>=1.5.3,<2.0.0',
-        'numpy>=1.24.3,<2.0.0',
-        'PyYAML==6.0.1',
-        'matplotlib>=3.7.1,<4.0.0',
-        'seaborn>=0.12.2,<1.0.0',
-        'scipy>=1.10.1,<2.0.0',
+        "pandas>=1.5.3,<2.0.0",
+        "numpy>=1.24.3,<2.0.0",
+        "PyYAML==6.0.1",
+        "matplotlib>=3.7.1,<4.0.0",
+        "seaborn>=0.12.2,<1.0.0",
+        "scipy>=1.10.1,<2.0.0",
     ],
     entry_points={
         "console_scripts": [
@@ -52,10 +54,10 @@ setup(
         "": ["config.yaml", "py.typed"],
     },
     extras_require={
-        'test': [
-            'pytest>=7.3.1,<8.0.0',
-            'pytest-cov>=4.1.0',
-            'pytest-mock>=3.11.1',
+        "test": [
+            "pytest>=7.3.1,<8.0.0",
+            "pytest-cov>=4.1.0",
+            "pytest-mock>=3.11.1",
         ],
     },
-) 
+)

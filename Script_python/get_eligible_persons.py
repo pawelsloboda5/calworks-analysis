@@ -9,30 +9,37 @@ from pathlib import Path
 import pandas as pd
 
 
-def save_eligible_persons(person_df: pd.DataFrame, eligible_households: pd.DataFrame) -> pd.DataFrame:
+def save_eligible_persons(
+    person_df: pd.DataFrame, eligible_households: pd.DataFrame
+) -> pd.DataFrame:
     """
     Filter persons under eligible households and save to a CSV.
-    
+
     Args:
         person_df (pd.DataFrame): DataFrame containing person data
         eligible_households (pd.DataFrame): DataFrame containing eligible households
-        
+
     Returns:
         pd.DataFrame: Filtered DataFrame containing only eligible persons
     """
     # Filter persons based on SERIALNO in eligible households
-    eligible_persons = person_df[person_df['SERIALNO'].isin(eligible_households['SERIALNO'])]
+    eligible_persons = person_df[
+        person_df["SERIALNO"].isin(eligible_households["SERIALNO"])
+    ]
     return eligible_persons
+
 
 # When running as standalone script
 if __name__ == "__main__":
     # Get the project root directory (2 levels up from this script)
     project_root = Path(__file__).parent.parent
-    
+
     # Define paths relative to project root
-    household_data_path = project_root / 'Script_python/data/eligible_calworks_sf_households.csv'
-    person_data_path = project_root / 'Script_python/data/pca_2022.csv'
-    output_path = project_root / 'Script_python/data/eligible_calworks_sf_persons.csv'
+    household_data_path = (
+        project_root / "Script_python/data/eligible_calworks_sf_households.csv"
+    )
+    person_data_path = project_root / "Script_python/data/pca_2022.csv"
+    output_path = project_root / "Script_python/data/eligible_calworks_sf_persons.csv"
 
     # Load data
     eligible_households = pd.read_csv(household_data_path, low_memory=False)
@@ -43,4 +50,4 @@ if __name__ == "__main__":
     eligible_persons.to_csv(output_path, index=False)
 
     # Display summary
-    print(eligible_persons.head())
+    print(eligible_persons.info())
