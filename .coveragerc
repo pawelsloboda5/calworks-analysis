@@ -1,0 +1,19 @@
+[run]
+source=Script_python
+omit=
+    */tests/*
+    */site-packages/*
+    setup.py
+
+[report]
+exclude_lines=
+    pragma: no cover
+    def __repr__
+    if self\.debug
+    raise NotImplementedError
+    pass
+    raise ImportError
+    if __name__ == .__main__.:
+
+[html]
+directory=coverage_html_report
