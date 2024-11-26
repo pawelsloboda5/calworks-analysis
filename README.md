@@ -28,19 +28,67 @@
 
 ## 📊 Latest Analysis Results
 
-### Employment Rates by Region
-- Highest: PUMA 7513 (71.7%)
-- Lowest: PUMA 7509 (36.4%)
-- Average: ~52.8%
+### Regional Overview
+<table>
+<tr>
+<td>
+<img src="docs/images/income_analysis.png" alt="Income Analysis" width="800"/>
+<br>
+<em>Comprehensive Income Analysis by PUMA Region</em>
+</td>
+</tr>
+</table>
 
-### Income Distribution
-- Highest median income: PUMA 7512 ($8,033/month)
-- Lowest median income: PUMA 7509 ($1,350/month)
-- Significant income inequality in regions 7512 and 7513
+### Key Findings
+- **Employment Patterns**:
+  - Highest employment: PUMA 7513 (71.7%)
+  - Lowest employment: PUMA 7509 (36.4%)
+  - Regional average: ~52.8%
 
-### Housing Affordability
-- Most affordable: PUMA 7513 (24% rent-to-income ratio)
-- Least affordable: PUMA 7508 (93% rent-to-income ratio)
+- **Income Distribution**:
+  - Peak median income: $8,033/month (PUMA 7512)
+  - Lowest median income: $1,350/month (PUMA 7509)
+  - Notable income inequality in regions 7512, 7513
+
+- **Housing Affordability**:
+  - Best affordability: 24% rent-to-income (PUMA 7513)
+  - Worst affordability: 93% rent-to-income (PUMA 7508)
+  - Critical areas identified: PUMAs 7508, 7509
+
+## 🎯 Project Goals
+
+1. **Eligibility Assessment**
+   - Automate CalWORKs eligibility determination
+   - Identify eligible households efficiently
+   - Reduce processing time and errors
+
+2. **Regional Analysis**
+   - Map income distribution patterns
+   - Identify affordability hotspots
+   - Track employment trends
+
+3. **Policy Insights**
+   - Support evidence-based decision making
+   - Identify areas needing intervention
+   - Monitor program effectiveness
+
+## 📈 Analysis Pipeline
+
+```mermaid
+graph LR
+    A[PUMS Data Input] --> B[Data Preprocessing]
+    B --> C[Eligibility Analysis]
+    C --> D[Income Analysis]
+    D --> E[Regional Analysis]
+    E --> F[Visualization]
+    
+    style A fill:#f9d5e5,stroke:#333
+    style B fill:#eeac99,stroke:#333
+    style C fill:#e06377,stroke:#333
+    style D fill:#c83349,stroke:#333
+    style E fill:#5b9aa0,stroke:#333
+    style F fill:#d6d4e0,stroke:#333
+```
 
 ## 🚀 Quick Start
 
