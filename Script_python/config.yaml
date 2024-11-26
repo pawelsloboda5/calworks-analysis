@@ -1,0 +1,27 @@
+# Default configuration for CalWORKs Analysis
+paths:
+  household_data: 'Script_python/data/hca_2022.csv'
+  person_data: 'Script_python/data/pca_2022.csv'
+  eligible_households: 'Script_python/data/eligible_calworks_sf_households.csv'
+  eligible_persons: 'Script_python/data/eligible_calworks_sf_persons.csv'
+  output_dir: 'Script_python/output'
+  plots_dir: 'Script_python/output/plots'
+# San Francisco PUMA codes
+sf_puma_codes: [7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514]
+# MBSAC thresholds for Region 1
+mbsac_thresholds:
+  1: 899
+  2: 1476
+  3: 1829
+  4: 2170
+  5: 2476
+  6: 2785
+  7: 3061
+  8: 3331
+  9: 3614
+  10: 3922
+# Analysis parameters
+analysis:
+ min_household_size: 1
+ max_household_size: 10
+ income_percentile_cutoff: 95

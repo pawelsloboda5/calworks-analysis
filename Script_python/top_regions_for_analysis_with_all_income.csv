@@ -1,0 +1,4 @@
+PUMA,total_households,median_rent,median_income,median_income_to_rent_ratio,median_employment_income,median_public_assistance_income,median_retirement_income,median_dividend_income,median_social_security_income,total_employment_income,total_public_assistance_income,total_retirement_income,total_dividend_income,total_social_security_income,total_people,rent_stress
+7507,88,1308.0,4825.0,3.69,14950.0,0.0,0.0,0.0,0.0,4634940.0,75430.0,249900.0,94180.0,536500.0,277,0.27
+7508,54,1810.0,1941.67,1.07,3510.0,0.0,0.0,0.0,0.0,3050020.0,60990.0,61700.0,349720.0,261700.0,122,0.93
+7509,154,800.0,1350.0,1.69,0.0,0.0,0.0,0.0,0.0,3053860.0,170750.0,92000.0,446950.0,446100.0,236,0.59
