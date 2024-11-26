@@ -10,7 +10,7 @@
 
 **A comprehensive data analysis toolkit for examining CalWORKs eligibility and regional affordability across San Francisco's PUMA regions.**
 
-[Key Features](#-key-features) •
+[Key Findings](#-key-findings) •
 [Installation](#-installation) •
 [Usage](#-usage) •
 [Documentation](#-documentation) •
@@ -25,6 +25,38 @@
 - **Income Analysis**: Multi-source income distribution and patterns
 - **Housing Affordability**: Detailed rent burden analysis
 - **Interactive Visualizations**: Comprehensive data visualization suite
+
+## 📊 Installation
+
+1. **Clone and Setup**
+```bash
+git clone https://github.com/pawelsloboda5/calworks-analysis.git
+cd calworks-analysis
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+2. **Development Setup** (optional)
+```bash
+pip install -e ".[test]"  # Install with test dependencies
+```
+
+## 🔧 Usage
+
+1. **Prepare Data**
+- Place PUMS data files in `Script_python/data/`:
+  - `hca_2022.csv` (Household data)
+  - `pca_2022.csv` (Person data)
+
+2. **Run Analysis**
+```bash
+python Script_python/main.py
+```
+
+3. **View Results**
+- Check `output/` directory for generated analysis files
+- View visualizations in `docs/images/`
 
 ## 📊 Latest Analysis Results
 
@@ -88,27 +120,6 @@ graph LR
     style D fill:#c83349,stroke:#333
     style E fill:#5b9aa0,stroke:#333
     style F fill:#d6d4e0,stroke:#333
-```
-
-## 🚀 Quick Start
-
-1. **Clone and Setup**
-```bash
-git clone https://github.com/pawelsloboda5/calworks-analysis.git
-cd calworks-analysis
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-2. **Prepare Data**
-- Place PUMS data files in `Script_python/data/`:
-  - `hca_2022.csv` (Household data)
-  - `pca_2022.csv` (Person data)
-
-3. **Run Analysis**
-```bash
-python Script_python/main.py
 ```
 
 ## 📈 Visualization Examples
