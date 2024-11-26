@@ -30,10 +30,6 @@ htmlcov/
 .pytest_cache/
 .tox/
 
-# Documentation
-docs/_build/
-docs/images/*
-!docs/images/.gitkeep
 
 # IDE specific files
 .idea/
