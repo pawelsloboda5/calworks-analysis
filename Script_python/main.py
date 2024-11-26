@@ -16,24 +16,26 @@ from visualizations.plots import generate_summary_plots
 
 def run_pipeline():
     """Execute the complete analysis pipeline."""
-    # Initialize logging and configuration
-    logger = setup_logging()
-    config = load_config()
-    
     try:
-        # Create output directory if it doesn't exist
+        # Initialize logging and configuration
+        logger = setup_logging()
+        config = load_config()
+        
+        # Create output directories
         output_dir = Path(config['paths']['output_dir'])
         output_dir.mkdir(parents=True, exist_ok=True)
+        plots_dir = Path(config['paths']['plots_dir'])
+        plots_dir.mkdir(parents=True, exist_ok=True)
         
-        # Step 1: Preprocessing
-        logger.info("Step 1: Preprocessing PUMS data...")
-        from preprocessing import load_pums_data, aggregate_person_data, calculate_eligibility
-        
-        # Load and preprocess data
+        # Load and process data using paths from config
         household_df, person_df = load_pums_data(
             config['paths']['household_data'],
             config['paths']['person_data']
         )
+        
+        # Step 1: Preprocessing
+        logger.info("Step 1: Preprocessing PUMS data...")
+        from preprocessing import load_pums_data, aggregate_person_data, calculate_eligibility
         
         # Aggregate person data first
         aggregated_person_df = aggregate_person_data(person_df)
@@ -64,8 +66,6 @@ def run_pipeline():
         
         # Step 5: Generate visualizations
         logger.info("Step 5: Generating visualizations...")
-        plots_dir = Path(config['paths']['plots_dir'])
-        plots_dir.mkdir(parents=True, exist_ok=True)
         generate_summary_plots(region_summary, plots_dir)
         
         logger.info("Analysis pipeline completed successfully!")
