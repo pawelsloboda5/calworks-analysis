@@ -11,5 +11,4 @@ recursive-include tests *.py
 include Script_python/data/.gitkeep
 include Script_python/output/.gitkeep
 recursive-exclude * __pycache__
-recursive-exclude * *.py[cod]
-recursive-exclude * *.so
+recursive-exclude * *.py[cod]recursive-exclude * *.so

@@ -4,6 +4,7 @@ omit=
     */tests/*
     */site-packages/*
     setup.py
+    conftest.py
 
 [report]
 exclude_lines=
@@ -11,9 +12,9 @@ exclude_lines=
     def __repr__
     if self\.debug
     raise NotImplementedError
+    if __name__ == .__main__.:
     pass
     raise ImportError
-    if __name__ == .__main__.:
 
 [html]
 directory=coverage_html_report
