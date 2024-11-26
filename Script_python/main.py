@@ -12,7 +12,8 @@ import sys
 from pathlib import Path
 from Script_python.utils.config import setup_logging, load_config
 from Script_python.utils.data_ops import validate_dataframe
-from visualizations.plots import generate_summary_plots
+from Script_python.preprocessing import load_pums_data, aggregate_person_data, calculate_eligibility
+from Script_python.visualizations.plots import generate_summary_plots
 
 def run_pipeline():
     """Execute the complete analysis pipeline."""
@@ -27,15 +28,14 @@ def run_pipeline():
         plots_dir = Path(config['paths']['plots_dir'])
         plots_dir.mkdir(parents=True, exist_ok=True)
         
+        # Step 1: Preprocessing
+        logger.info("Step 1: Preprocessing PUMS data...")
+        
         # Load and process data using paths from config
         household_df, person_df = load_pums_data(
             config['paths']['household_data'],
             config['paths']['person_data']
         )
-        
-        # Step 1: Preprocessing
-        logger.info("Step 1: Preprocessing PUMS data...")
-        from preprocessing import load_pums_data, aggregate_person_data, calculate_eligibility
         
         # Aggregate person data first
         aggregated_person_df = aggregate_person_data(person_df)
@@ -48,19 +48,19 @@ def run_pipeline():
         
         # Step 2: Get eligible persons
         logger.info("Step 2: Filtering eligible persons...")
-        from get_eligible_persons import save_eligible_persons
+        from Script_python.get_eligible_persons import save_eligible_persons
         eligible_persons = save_eligible_persons(person_df, eligible_households)
         eligible_persons.to_csv(config['paths']['eligible_persons'], index=False)
         
         # Step 3: Income filtering
         logger.info("Step 3: Calculating income metrics...")
-        from income_filtering import calculate_income_metrics
+        from Script_python.income_filtering import calculate_income_metrics
         households_with_income = calculate_income_metrics(config)
         households_with_income.to_csv(output_dir / 'filtered_income_metrics_households.csv', index=False)
         
         # Step 4: Regional analysis
         logger.info("Step 4: Analyzing regions...")
-        from regions_afford import analyze_regions
+        from Script_python.regions_afford import analyze_regions
         region_summary = analyze_regions(households_with_income, eligible_persons)
         region_summary.to_csv(output_dir / 'region_analysis.csv', index=False)
         
