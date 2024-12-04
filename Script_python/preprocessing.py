@@ -99,8 +99,20 @@ def aggregate_person_data(person_df: pd.DataFrame) -> pd.DataFrame:
         raise
 
 
+def calculate_mbsac_threshold(household_size: int, config: dict) -> float:
+    """Calculate MBSAC threshold for given household size."""
+    if household_size <= 10:
+        return config['mbsac_thresholds'][household_size]
+    else:
+        # For households larger than 10, add additional person amount
+        base_amount = config['mbsac_thresholds'][10]
+        extra_persons = household_size - 10
+        return base_amount + (extra_persons * config['mbsac_thresholds']['additional_person'])
+
 def calculate_eligibility(
-    household_df: pd.DataFrame, aggregated_person_df: pd.DataFrame
+    household_df: pd.DataFrame,
+    aggregated_person_df: pd.DataFrame,
+    config: dict
 ) -> pd.DataFrame:
     """
     Determine eligibility for CalWORKs using vectorized operations.
@@ -108,40 +120,40 @@ def calculate_eligibility(
     try:
         # Merge household data with aggregated person data
         household_df = pd.merge(
-            household_df, aggregated_person_df, on="SERIALNO", how="left"
+            household_df,
+            aggregated_person_df,
+            on="SERIALNO",
+            how="left"
         )
 
-        # Fill NaN values in any_pap with 0
-        household_df["any_pap"] = household_df["any_pap"].fillna(0)
-        household_df["total_pap"] = household_df["total_pap"].fillna(0)
-
-        # Cap household size efficiently
-        household_df["NP_capped"] = np.minimum(household_df["NP"], 10)
-
-        # Map MBSAC thresholds using vectorized operations
-        mbsac_series = pd.Series(config["mbsac_thresholds"])
-        household_df["MBSAC"] = household_df["NP_capped"].map(
-            config["mbsac_thresholds"]
+        # Calculate MBSAC thresholds
+        household_df['MBSAC'] = household_df['NP'].apply(
+            lambda x: calculate_mbsac_threshold(x, config)
         )
 
-        # Calculate eligibility using vectorized operations
-        household_df["income_eligible"] = (
-            (household_df["HINCP"] < household_df["MBSAC"])
-            & household_df["HINCP"].notnull()
-            & household_df["MBSAC"].notnull()
+        # Calculate income eligibility
+        household_df['income_eligible'] = (
+            household_df['total_countable_income'] < household_df['MBSAC']
         )
 
-        household_df["receives_FS"] = household_df["FS"] == 1
-        household_df["eligible_calworks"] = (
-            household_df["income_eligible"]
-            | (household_df["any_pap"] == 1)
-            | household_df["receives_FS"]
+        # Determine categorical eligibility
+        fs_col = config['categorical_eligibility']['food_stamps_col']
+        pa_col = config['categorical_eligibility']['public_assistance_col']
+        
+        household_df['categorically_eligible'] = (
+            (household_df[fs_col] == 1) |
+            (household_df[pa_col] > 0)
+        )
+
+        # Final eligibility determination
+        household_df['eligible_calworks'] = (
+            household_df['income_eligible'] |
+            household_df['categorically_eligible']
         )
 
         # Filter for eligible households
-        eligible_households = household_df[household_df["eligible_calworks"]]
+        eligible_households = household_df[household_df['eligible_calworks']]
 
-        logger.info(f"Calculated eligibility for {len(household_df)} households")
         return eligible_households
 
     except Exception as e:
@@ -159,7 +171,7 @@ if __name__ == "__main__":
     aggregated_person_df = aggregate_person_data(person_df)
 
     # Calculate eligibility
-    eligible_households = calculate_eligibility(household_df, aggregated_person_df)
+    eligible_households = calculate_eligibility(household_df, aggregated_person_df, config)
 
     # Save results to a CSV
     output_path = Path(config["paths"]["eligible_households"])

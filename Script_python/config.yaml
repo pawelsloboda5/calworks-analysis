@@ -1,14 +1,29 @@
-# Default configuration for CalWORKs Analysis
+# CalWORKs Analysis Configuration
+
+# Paths configuration
 paths:
-  household_data: 'Script_python/data/hca_2022.csv'
-  person_data: 'Script_python/data/pca_2022.csv'
-  eligible_households: 'Script_python/data/eligible_calworks_sf_households.csv'
-  eligible_persons: 'Script_python/data/eligible_calworks_sf_persons.csv'
-  output_dir: 'Script_python/output'
-  plots_dir: 'Script_python/output/plots'
-# San Francisco PUMA codes
-sf_puma_codes: [7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514]
-# MBSAC thresholds for Region 1
+  household_data: "data/hca_2022.csv"
+  person_data: "data/pca_2022.csv"
+  output_dir: "output"
+  plots_dir: "docs/images"
+  eligible_households: "output/eligible_calworks_sf_households.csv"
+  eligible_persons: "output/eligible_calworks_sf_persons.csv"
+  
+# PUMA Configuration
+puma:
+  # San Francisco PUMA codes and names (2020)
+  codes: [7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514]
+  names:
+    7507: "San Francisco County (South Central)--Bayview & Hunters Point"
+    7508: "San Francisco County (Northwest)--Richmond, Western Addition & Presidio"
+    7509: "San Francisco County (Northeast)--Chinatown, North Beach & Russian Hill"
+    7510: "San Francisco County (Southeast)--South of Market & Mission"
+    7511: "San Francisco County (Southwest)--Central & Bernal Heights"
+    7512: "San Francisco County (Southwest)--Outer Sunset & Inner Sunset"
+    7513: "San Francisco County (Southwest)--Ingleside & South Central"
+    7514: "San Francisco County (Northwest)--Western Addition & Marina"
+
+# MBSAC Thresholds (https://ca.db101.org/ca/programs/income_support/calworks/program2b.htm)
 mbsac_thresholds:
   1: 899
   2: 1476
@@ -20,8 +35,30 @@ mbsac_thresholds:
   8: 3331
   9: 3614
   10: 3922
-# Analysis parameters
-analysis:
- min_household_size: 1
- max_household_size: 10
- income_percentile_cutoff: 95
+  additional_person: 35
+
+# Income Calculation Rules
+income:
+  earned_income_disregard: 450
+  excluded_income_types:
+    - "SSI" # Not Yet Implemented
+    - "LOANS" # Not Yet Implemented
+    - "GRANTS" # Not Yet Implemented
+    - "EITC" # Not Yet Implemented
+    - "DISASTER" # Not Yet Implemented
+  income_columns:
+    earned:
+      - "WAGP"  # Wages/salary
+      - "SEMP"  # Self-employment
+    unearned:
+      - "RETP"  # Retirement
+      - "INTP"  # Interest
+      - "PAP"   # Public assistance
+    excluded:
+      - "SSP"   # Social Security/SSI
+
+# Categorical Eligibility
+categorical_eligibility:
+  food_stamps_col: "FS" # Food Stamp Recipient
+  public_assistance_col: "PAP" # Public Assistance Recipient
+
