@@ -8,7 +8,7 @@ paths:
   plots_dir: "docs/images"
   eligible_households: "output/eligible_calworks_sf_households.csv"
   eligible_persons: "output/eligible_calworks_sf_persons.csv"
-  
+
 # PUMA Configuration
 puma:
   # San Francisco PUMA codes and names (2020)

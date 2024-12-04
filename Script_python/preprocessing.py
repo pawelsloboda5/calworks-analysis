@@ -41,11 +41,19 @@ def load_pums_data(
         household_df = safe_numeric_conversion(household_df, ["HINCP", "NP"])
         person_df = safe_numeric_conversion(person_df, ["PAP", "WAGP", "SEMP"])
 
+        # Remove invalid household sizes
+        invalid_households = household_df[household_df["NP"] <= 0]
+        if len(invalid_households) > 0:
+            logger.warning(
+                f"Removing {len(invalid_households)} households with invalid size (NP <= 0)"
+            )
+            household_df = household_df[household_df["NP"] > 0]
+
         # Fill NaN values with 0 for income-related columns
         person_df["PAP"] = person_df["PAP"].fillna(0)
 
         # Filter for San Francisco PUMA codes
-        sf_puma_codes = config["sf_puma_codes"]
+        sf_puma_codes = config["puma"]["codes"]  # Updated to use new config structure
         household_df = household_df[
             (household_df["ST"] == 6) & (household_df["PUMA"].isin(sf_puma_codes))
         ].copy()  # Create a copy to avoid SettingWithCopyWarning
@@ -101,6 +109,11 @@ def aggregate_person_data(person_df: pd.DataFrame) -> pd.DataFrame:
 
 def calculate_mbsac_threshold(household_size: int, config: dict) -> float:
     """Calculate MBSAC threshold for given household size."""
+    # Handle invalid household sizes (0 or negative)
+    if household_size <= 0:
+        logger.warning(f"Invalid household size detected: {household_size}. Using threshold for size 1.")
+        return config['mbsac_thresholds'][1]
+    
     if household_size <= 10:
         return config['mbsac_thresholds'][household_size]
     else:
@@ -116,6 +129,12 @@ def calculate_eligibility(
 ) -> pd.DataFrame:
     """
     Determine eligibility for CalWORKs using vectorized operations.
+    
+    Key Eligibility Criteria:
+    1. Income Test: Total countable income < MBSAC threshold
+    2. Categorical Eligibility: 
+       - Receives Food Stamps (FS = 1)
+       - Receives Public Assistance (PAP > 0)
     """
     try:
         # Merge household data with aggregated person data
@@ -131,29 +150,37 @@ def calculate_eligibility(
             lambda x: calculate_mbsac_threshold(x, config)
         )
 
-        # Calculate income eligibility
+        # Calculate monthly income (annual / 12)
+        household_df['monthly_countable_income'] = household_df['total_countable_income'] / 12
+
+        # Calculate income eligibility (using monthly values)
         household_df['income_eligible'] = (
-            household_df['total_countable_income'] < household_df['MBSAC']
+            household_df['monthly_countable_income'] < household_df['MBSAC']
         )
 
-        # Determine categorical eligibility
+        # Track eligibility reasons
         fs_col = config['categorical_eligibility']['food_stamps_col']
         pa_col = config['categorical_eligibility']['public_assistance_col']
         
-        household_df['categorically_eligible'] = (
-            (household_df[fs_col] == 1) |
-            (household_df[pa_col] > 0)
-        )
+        household_df['food_stamps_eligible'] = household_df[fs_col] == 1
+        household_df['public_assistance_eligible'] = household_df[pa_col] > 0
 
         # Final eligibility determination
         household_df['eligible_calworks'] = (
             household_df['income_eligible'] |
-            household_df['categorically_eligible']
+            household_df['food_stamps_eligible'] |
+            household_df['public_assistance_eligible']
         )
 
-        # Filter for eligible households
-        eligible_households = household_df[household_df['eligible_calworks']]
+        # Calculate eligibility statistics
+        total_eligible = len(household_df[household_df['eligible_calworks']])
+        logger.info(f"Total eligible households: {total_eligible}")
+        logger.info(f"Income eligible: {(household_df['income_eligible'].mean() * 100):.1f}%")
+        logger.info(f"Food Stamps: {(household_df['food_stamps_eligible'].mean() * 100):.1f}%")
+        logger.info(f"Public Assistance: {(household_df['public_assistance_eligible'].mean() * 100):.1f}%")
 
+        # Filter and return eligible households
+        eligible_households = household_df[household_df['eligible_calworks']].copy()
         return eligible_households
 
     except Exception as e:
