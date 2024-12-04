@@ -2,6 +2,13 @@
 
 All notable changes to the CalWORKs Analysis project will be documented in this file.
 
+## [1.1.1] - 12/4/2024
+
+### Fixed
+- Handle invalid household sizes (NP <= 0) in preprocessing
+- Update PUMA configuration structure reference
+- Improve data validation logging
+
 ## [1.1.0] - 12/4/2024
 
 ### Added
