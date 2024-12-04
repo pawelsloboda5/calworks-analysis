@@ -35,7 +35,7 @@ def analyze_regions(
         eligible_households["total_social_security_income"] > 0
     )
 
-    # Aggregate households by region
+    # Aggregate households by region (PUMA only, not by NP)
     household_summary = (
         eligible_households.groupby("PUMA")
         .agg(
@@ -71,24 +71,13 @@ def analyze_regions(
                 "has_social_security_income",
                 "sum",
             ),
+            income_eligible=("income_eligible", "sum"),
+            receives_FS=("receives_FS", "sum"),
+            any_pap=("any_pap", "sum"),
+            avg_household_size=("NP", "mean"),
+            median_household_size=("NP", "median"),
         )
         .reset_index()
-    )
-
-    eligible_households["has_employment_income"] = (
-        eligible_households["total_employment_income"] > 0
-    )
-    eligible_households["has_public_assistance_income"] = (
-        eligible_households["total_public_assistance_income"] > 0
-    )
-    eligible_households["has_retirement_income"] = (
-        eligible_households["total_retirement_income"] > 0
-    )
-    eligible_households["has_dividend_income"] = (
-        eligible_households["total_dividend_income"] > 0
-    )
-    eligible_households["has_social_security_income"] = (
-        eligible_households["total_social_security_income"] > 0
     )
 
     # Aggregate persons by region
@@ -101,7 +90,7 @@ def analyze_regions(
     # Merge summaries
     region_summary = pd.merge(household_summary, person_summary, on="PUMA", how="inner")
     region_summary["rent_stress"] = 1 / region_summary["median_income_to_rent_ratio"]
-
+    
     # Round relevant columns
     numeric_columns = region_summary.select_dtypes(include=["float64"]).columns
     region_summary[numeric_columns] = region_summary[numeric_columns].round(2)

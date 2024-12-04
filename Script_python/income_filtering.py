@@ -15,7 +15,7 @@ def calculate_countable_income(person_df: pd.DataFrame, config: dict) -> pd.Data
     """Calculate countable income according to CalWORKs rules."""
     """ Earned: WAGP (Wages/salary), SEMP (Self-employment)"""
     """ UNEARNED: RETP (Retirement), INTP (Interest), PAP (Public assistance)"""    
-    
+
     # Create copy to avoid modifying original
     df = person_df.copy()
     
@@ -51,7 +51,7 @@ def calculate_income_metrics(config: dict) -> pd.DataFrame:
     based on the complete persons dataset.
     """
     # Load data
-    households_path = config["paths"]["eligible_households"]
+    households_path = config["paths"]["household_data"]
     all_persons_path = config["paths"]["person_data"]
 
     eligible_households = pd.read_csv(households_path)
@@ -89,4 +89,4 @@ def calculate_income_metrics(config: dict) -> pd.DataFrame:
     ]
     updated_households[income_columns] = updated_households[income_columns].fillna(0)
     
-    return updated_households
+    return updated_households, persons_with_income

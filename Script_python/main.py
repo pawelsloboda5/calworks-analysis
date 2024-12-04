@@ -10,6 +10,8 @@ Runs the complete analysis workflow in sequence:
 """
 import sys
 from pathlib import Path
+import logging
+from datetime import datetime
 
 from Script_python.preprocessing import (
     aggregate_person_data,
@@ -17,16 +19,23 @@ from Script_python.preprocessing import (
     load_pums_data,
 )
 from Script_python.utils.config import load_config, setup_logging
-from Script_python.utils.data_ops import validate_dataframe
-from Script_python.visualizations.plots import generate_summary_plots
-
+from Script_python.utils.data_ops import validate_eligibility_data
+from Script_python.income_filtering import calculate_income_metrics
+from Script_python.regions_afford import analyze_regions
+from Script_python.visualizations.plots import (
+    generate_summary_plots,
+    plot_eligibility_breakdown,
+    plot_income_distribution
+)
 
 def run_pipeline() -> int:
     """Execute the complete analysis pipeline."""
+    start_time = datetime.now()
     try:
         # Initialize logging and configuration
         logger = setup_logging()
         config = load_config()
+        logger.info("Starting CalWORKs Analysis Pipeline")
 
         # Create output directories
         output_dir = Path(config["paths"]["output_dir"])
@@ -34,57 +43,65 @@ def run_pipeline() -> int:
         plots_dir = Path(config["paths"]["plots_dir"])
         plots_dir.mkdir(parents=True, exist_ok=True)
 
-        # Step 1: Preprocessing
-        logger.info("Step 1: Preprocessing PUMS data...")
-
-        # Load and process data using paths from config
+        # Step 1: Load and Preprocess Data
+        logger.info("Step 1: Loading and preprocessing PUMS data...")
         household_df, person_df = load_pums_data(
-            config["paths"]["household_data"], config["paths"]["person_data"]
+            config["paths"]["household_data"],
+            config["paths"]["person_data"]
         )
+        logger.info(f"Loaded {len(household_df)} households and {len(person_df)} persons")
 
-        # Aggregate person data first
-        aggregated_person_df = aggregate_person_data(person_df)
+        # Step 2: Calculate Income Metrics
+        logger.info("Step 2: Calculating income metrics...")
+        households_with_income, persons_with_income = calculate_income_metrics(config)
+        logger.info(f"Processed income for {len(households_with_income)} households and {len(persons_with_income)} persons")
 
-        # Calculate eligibility using aggregated person data
-        eligible_households = calculate_eligibility(household_df, aggregated_person_df)
+        # Validate data before eligibility calculation
+        validate_eligibility_data(household_df)
+
+        # Step 3: Aggregate Person Data 
+        logger.info("Step 3: Aggregating person-level data...")
+        aggregated_person_df = aggregate_person_data(person_df)        
+
+        # Step 4: Calculate Eligibility
+        logger.info("Step 4: Determining CalWORKs eligibility...")
+        eligible_households = calculate_eligibility(
+            household_df,
+            aggregated_person_df,
+            config
+        )
 
         # Save eligible households
-        eligible_households.to_csv(config["paths"]["eligible_households"], index=False)
+        eligible_path = output_dir / "eligible_calworks_sf_households.csv"
+        eligible_households.to_csv(eligible_path, index=False)
+        logger.info(f"Saved eligible households to {eligible_path}")
 
-        # Step 2: Get eligible persons
-        logger.info("Step 2: Filtering eligible persons...")
-        from Script_python.get_eligible_persons import save_eligible_persons
-
-        eligible_persons = save_eligible_persons(person_df, eligible_households)
-        eligible_persons.to_csv(config["paths"]["eligible_persons"], index=False)
-
-        # Step 3: Income filtering
-        logger.info("Step 3: Calculating income metrics...")
-        from Script_python.income_filtering import calculate_income_metrics
-
-        households_with_income = calculate_income_metrics(config)
-        households_with_income.to_csv(
-            output_dir / "filtered_income_metrics_households.csv", index=False
-        )
-
-        # Step 4: Regional analysis
-        logger.info("Step 4: Analyzing regions...")
-        from Script_python.regions_afford import analyze_regions
-
-        region_summary = analyze_regions(households_with_income, eligible_persons)
+        # Step 5: Regional Analysis
+        logger.info("Step 5: Analyzing regions...")
+        region_summary = analyze_regions(eligible_households, person_df)
         region_summary.to_csv(output_dir / "region_analysis.csv", index=False)
 
-        # Step 5: Generate visualizations
-        logger.info("Step 5: Generating visualizations...")
+        # Step 6: Generate Visualizations
+        logger.info("Step 6: Generating visualizations...")
         generate_summary_plots(region_summary, plots_dir)
+        plot_eligibility_breakdown(eligible_households, plots_dir)
+        plot_income_distribution(region_summary, plots_dir)
 
-        logger.info("Analysis pipeline completed successfully!")
+        # Print Summary Statistics
+        print("\nAnalysis Summary:")
+        print(f"Total Households Analyzed: {len(household_df):,}")
+        print(f"Eligible Households: {len(eligible_households):,}")
+        print(f"Eligibility Rate: {(len(eligible_households)/len(household_df)*100):.1f}%")
+        
+        # Calculate processing time
+        end_time = datetime.now()
+        duration = end_time - start_time
+        logger.info(f"Pipeline completed successfully in {duration}")
         return 0
 
     except Exception as e:
         logger.error(f"Pipeline failed: {str(e)}", exc_info=True)
         return 1
-
 
 if __name__ == "__main__":
     sys.exit(run_pipeline())

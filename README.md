@@ -60,6 +60,33 @@ python Script_python/main.py
 
 ## 📊 Latest Analysis Results
 
+### Eligibility Analysis
+<table>
+<tr>
+<td>
+<img src="docs/images/eligibility_breakdown.png" alt="Eligibility Breakdown" width="400"/>
+<br>
+<em>CalWORKs Eligibility Criteria Distribution</em>
+</td>
+<td>
+<img src="docs/images/household_size_distribution.png" alt="Household Sizes" width="400"/>
+<br>
+<em>Distribution of Eligible Household Sizes</em>
+</td>
+</tr>
+</table>
+
+### Income and Rent Analysis
+<table>
+<tr>
+<td>
+<img src="docs/images/income_vs_rent_scatter.png" alt="Income vs Rent" width="800"/>
+<br>
+<em>Household Income vs Rent Distribution by PUMA Region</em>
+</td>
+</tr>
+</table>
+
 ### Regional Overview
 <table>
 <tr>
@@ -72,20 +99,31 @@ python Script_python/main.py
 </table>
 
 ### Key Findings
-- **Employment Patterns**:
+- **Eligibility Distribution**:
+  - Income Eligible (MBSAC): 7.3% of analyzed households
+  - Food Stamp Recipients: 81.4% of eligible households
+  - Public Assistance Recipients: 27.5% of eligible households
+
+- **Employment Patterns** (Among CalWORKs Eligible Population):
   - Highest employment: PUMA 7513 (71.7%)
   - Lowest employment: PUMA 7509 (36.4%)
   - Regional average: ~52.8%
 
-- **Income Distribution**:
+- **Income Distribution** (CalWORKs Eligible):
   - Peak median income: $8,033/month (PUMA 7512)
   - Lowest median income: $1,350/month (PUMA 7509)
   - Notable income inequality in regions 7512, 7513
 
-- **Housing Affordability**:
+- **Housing Affordability** (Among Eligible Households):
   - Best affordability: 24% rent-to-income (PUMA 7513)
   - Worst affordability: 93% rent-to-income (PUMA 7508)
   - Critical areas identified: PUMAs 7508, 7509
+
+Notes:
+- Eligibility based on Region 1 MBSAC thresholds (e.g., $899 for 1 person, $1,476 for 2 persons)
+- Income calculations exclude SSI, grants, EITC, and federal disaster benefits
+- $450 earned income disregard applied per working family member
+- Analysis considers both income eligibility and categorical eligibility (Food Stamps/Public Assistance)
 
 ## 🎯 Project Goals
 

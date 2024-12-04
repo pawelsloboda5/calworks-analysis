@@ -63,3 +63,39 @@ def filter_by_puma(df: pd.DataFrame, puma_codes: List[int]) -> pd.DataFrame:
     """
 
     return df[df["PUMA"].isin(puma_codes)]
+
+
+def validate_eligibility_data(df: pd.DataFrame) -> None:
+    """Validate eligibility calculation data for consistency."""
+    
+    # Check for required columns
+    required_cols = [
+        'SERIALNO', 'NP', 'FS', 'PAP', 
+        'total_countable_income', 'MBSAC',
+        'monthly_countable_income'
+    ]
+    missing_cols = [col for col in required_cols if col not in df.columns]
+    if missing_cols:
+        raise ValueError(f"Missing required columns: {missing_cols}")
+    
+    # Validate value ranges
+    if (df['NP'] <= 0).any():
+        raise ValueError("Found households with invalid (<=0) number of persons")
+        
+    if (df['monthly_countable_income'] < 0).any():
+        raise ValueError("Found negative monthly countable income")
+        
+    if (df['MBSAC'] <= 0).any():
+        raise ValueError("Found invalid MBSAC thresholds")
+    
+    # Check categorical eligibility indicators
+    if not df['FS'].isin([0, 1]).all():
+        raise ValueError("Food Stamps indicator contains invalid values")
+        
+    if (df['PAP'] < 0).any():
+        raise ValueError("Found negative public assistance values")
+    
+    # Log summary statistics
+    logger.info(f"Data validation passed for {len(df)} households")
+    logger.info(f"Household size range: {df['NP'].min()} to {df['NP'].max()}")
+    logger.info(f"Monthly income range: ${df['monthly_countable_income'].min():.2f} to ${df['monthly_countable_income'].max():.2f}")

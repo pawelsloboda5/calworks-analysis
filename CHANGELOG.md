@@ -2,6 +2,21 @@
 
 All notable changes to the CalWORKs Analysis project will be documented in this file.
 
+## [1.1.2] - 12/4/2024
+
+### Fixed
+- Critical eligibility calculation bug: Now correctly using raw household data (`household_df`) instead of filtered income data (`households_with_income`) when determining CalWORKs eligibility
+- This ensures households with zero income are properly evaluated for eligibility against MBSAC thresholds
+
+### Technical Details
+- Modified `main.py` to pass `household_df` instead of `households_with_income` to the `calculate_eligibility()` function
+- Added 'validate_eligibility_data' step in 'Script_python/main.py' to validate eligibility calculation data before Step 4 : Calculate Eligibility
+- Ensures alignment with CalWORKs program rules where zero-income households may be eligible
+- No changes to underlying eligibility calculation logic
+
+### Added
+- validate_eligibility_data() function to validate eligibility calculation data for consistency in `utils/data_ops.py`
+
 ## [1.1.1] - 12/4/2024
 
 ### Fixed
