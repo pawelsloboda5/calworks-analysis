@@ -1,0 +1,82 @@
+{
+    "execution_time": "0:00:45.811917",
+    "state_summary": {
+        "total_households": 167262,
+        "eligible_households": 167262,
+        "calworks_eligible": 46396,
+        "eligibility_breakdown": {
+            "total_rate": "100.0%",
+            "calworks_rate": "27.7%",
+            "income_eligible": "23.7%",
+            "food_stamps": "11.3%",
+            "public_assistance": "3.5%"
+        },
+        "income_metrics": {
+            "median_monthly": "$5,916.67",
+            "mean_monthly": "$9,128.79",
+            "working_households": 114635,
+            "avg_working_members": "1.20"
+        }
+    },
+    "region_summary": {
+        "name": "San Francisco",
+        "total_households": 4479,
+        "calworks_eligible": 1127,
+        "eligibility_breakdown": {
+            "total_rate": "100.0%",
+            "calworks_rate": "25.2%"
+        },
+        "income_metrics": {
+            "median_monthly": "$8,333.33",
+            "mean_monthly": "$13,910.20",
+            "working_households": 3157,
+            "avg_working_members": "1.18"
+        },
+        "income_ranges": {
+            "all_households": {
+                "monthly": {
+                    "min": "$-458.33",
+                    "max": "$180,416.67",
+                    "p25": "$1,250.00",
+                    "p50": "$8,333.33",
+                    "p75": "$19,079.17"
+                },
+                "household_size": {
+                    "min": 0,
+                    "max": 14,
+                    "avg": "1.9"
+                },
+                "mbsac_thresholds": {
+                    "min": "$899.00",
+                    "max": "$5,154.00",
+                    "avg": "$1,352.34"
+                }
+            },
+            "calworks_eligible": {
+                "monthly": {
+                    "min": "$0.00",
+                    "max": "$69,866.67",
+                    "p25": "$0.00",
+                    "p50": "$0.00",
+                    "p75": "$1,780.00"
+                },
+                "household_size": {
+                    "min": 1,
+                    "max": 14,
+                    "avg": "1.7"
+                },
+                "mbsac_thresholds": {
+                    "min": "$899.00",
+                    "max": "$5,154.00",
+                    "avg": "$1,211.11"
+                }
+            }
+        },
+        "income_distribution": {
+            "below_1000": "23.2%",
+            "1000_2500": "7.0%",
+            "2500_5000": "8.1%",
+            "5000_plus": "61.7%"
+        }
+    }
+}

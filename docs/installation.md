@@ -32,25 +32,31 @@ pip install -r requirements.txt
 ```bash
 # Create necessary directories
 mkdir -p Script_python/data/
-mkdir -p Script_python/output/
+mkdir -p Script_python/after_main_run_logs/
 ```
 
-### 4. Verify Installation
+### 4. Data Setup
+- Place household data (hca_2022.csv) in Script_python/data/
+- Place person data (pca_2022.csv) in Script_python/data/
+- Update config.yaml with correct file paths
+
+### 5. Verify Installation
 ```bash
 # Run tests
 pytest
 
-# Run sample analysis
-python Script_python/main.py --test
+# Run pipeline
+python run_analysis.py
 ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-1. **Import Errors**
+1. **Plotly Visualization Errors**
    ```
-   Solution: Ensure you're in the correct directory and virtual environment is activated
+   Solution: Ensure plotly and its dependencies are installed
+   pip install plotly kaleido
    ```
 
 2. **Missing Dependencies**

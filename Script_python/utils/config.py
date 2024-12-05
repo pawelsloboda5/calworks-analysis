@@ -20,12 +20,12 @@ def setup_logging() -> logging.Logger:
 
 
 class PathsConfig(TypedDict):
-    household_data: str
-    person_data: str
-    output_dir: str
-    plots_dir: str
-    eligible_households: str
-    eligible_persons: str
+    household_data: Path
+    person_data: Path
+    output_dir: Path
+    plots_dir: Path
+    eligible_households: Path
+    eligible_persons: Path
 
 
 class Config(TypedDict):
@@ -34,41 +34,18 @@ class Config(TypedDict):
     mbsac_thresholds: Dict[int, int]
 
 
-def load_config(config_path: str = "Script_python/config.yaml") -> Config:
-    """Load configuration from YAML file."""
+def load_config(config_path: str = "config.yaml") -> Dict:
+    """Load and validate configuration."""
     try:
-        with open(config_path, "r") as f:
-            loaded_config: Config = yaml.safe_load(f)  # type: ignore
-            return loaded_config
+        # Load YAML relative to Script_python directory
+        config_file = Path(__file__).parent.parent / config_path
+        with open(config_file, "r") as f:
+            config = yaml.safe_load(f)
+        
+        # Convert all paths to Path objects
+        for key, value in config["paths"].items():
+            config["paths"][key] = Path(value)
+            
+        return config
     except FileNotFoundError:
-        # Default configuration with absolute paths
-        project_root = Path(__file__).parent.parent.parent
-        default_config: Config = {
-            "paths": {
-                "household_data": str(project_root / "Script_python/data/hca_2022.csv"),
-                "person_data": str(project_root / "Script_python/data/pca_2022.csv"),
-                "eligible_households": str(
-                    project_root
-                    / "Script_python/data/eligible_calworks_sf_households.csv"
-                ),
-                "eligible_persons": str(
-                    project_root / "Script_python/data/eligible_calworks_sf_persons.csv"
-                ),
-                "output_dir": str(project_root / "Script_python/output"),
-                "plots_dir": str(project_root / "Script_python/output/plots"),
-            },
-            "sf_puma_codes": [7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514],
-            "mbsac_thresholds": {
-                1: 899,
-                2: 1476,
-                3: 1829,
-                4: 2170,
-                5: 2476,
-                6: 2785,
-                7: 3061,
-                8: 3331,
-                9: 3614,
-                10: 3922,
-            },
-        }
-        return default_config
+        raise FileNotFoundError(f"Config file not found at {config_path}")

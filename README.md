@@ -1,186 +1,23 @@
-# 📊 CalWORKs Analysis for San Francisco
+# 📊 San Francisco Housing & CalWORKs Analysis
 
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Tests](https://github.com/pawelsloboda5/calworks-analysis/actions/workflows/python-app.yml/badge.svg)
-[![codecov](https://codecov.io/gh/pawelsloboda5/calworks-analysis/branch/main/graph/badge.svg)](https://codecov.io/gh/pawelsloboda5/calworks-analysis)
-![Last Commit](https://img.shields.io/github/last-commit/pawelsloboda5/calworks-analysis)
+![Status](https://img.shields.io/badge/Status-Active-success)
+![Last Updated](https://img.shields.io/badge/Last%20Updated-December%202023-brightgreen)
 
 <div align="center">
 
-**A comprehensive data analysis toolkit for examining CalWORKs eligibility and regional affordability across San Francisco's PUMA regions.**
+**A comprehensive analysis of housing affordability and CalWORKs eligibility across California, with focus on San Francisco's PUMA regions.**
 
-[Key Findings](#-key-findings) •
-[Installation](#-installation) •
-[Usage](#-usage) •
-[Documentation](#-documentation) •
-[Contributing](#-contributing)
+[Overview](#-overview) • 
+[State Analysis](#-state-analysis) • 
+[SF Analysis](#-san-francisco-analysis) • 
+[Installation](#-installation)
 
 </div>
 
-## 🌟 Key Features
+<div align="center">
 
-- **Automated Eligibility Analysis**: Determine CalWORKs eligibility based on multiple criteria
-- **Regional Insights**: Deep analysis of San Francisco's PUMA regions (7507-7514)
-- **Income Analysis**: Multi-source income distribution and patterns
-- **Housing Affordability**: Detailed rent burden analysis
-- **Interactive Visualizations**: Comprehensive data visualization suite
-
-## 📊 Installation
-
-1. **Clone and Setup**
-```bash
-git clone https://github.com/pawelsloboda5/calworks-analysis.git
-cd calworks-analysis
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-2. **Development Setup** (optional)
-```bash
-pip install -e ".[test]"  # Install with test dependencies
-```
-
-## 🔧 Usage
-
-1. **Prepare Data**
-- Place PUMS data files in `Script_python/data/`:
-  - `hca_2022.csv` (Household data)
-  - `pca_2022.csv` (Person data)
-
-2. **Run Analysis**
-```bash
-python Script_python/main.py
-```
-
-3. **View Results**
-- Check `output/` directory for generated analysis files
-- View visualizations in `docs/images/`
-
-## 📊 Latest Analysis Results
-
-### Eligibility Analysis
-<table>
-<tr>
-<td>
-<img src="docs/images/eligibility_breakdown.png" alt="Eligibility Breakdown" width="400"/>
-<br>
-<em>CalWORKs Eligibility Criteria Distribution</em>
-</td>
-<td>
-<img src="docs/images/household_size_distribution.png" alt="Household Sizes" width="400"/>
-<br>
-<em>Distribution of Eligible Household Sizes</em>
-</td>
-</tr>
-</table>
-
-### Income and Rent Analysis
-<table>
-<tr>
-<td>
-<img src="docs/images/income_vs_rent_scatter.png" alt="Income vs Rent" width="800"/>
-<br>
-<em>Household Income vs Rent Distribution by PUMA Region</em>
-</td>
-</tr>
-</table>
-
-### Regional Overview
-<table>
-<tr>
-<td>
-<img src="docs/images/income_analysis.png" alt="Income Analysis" width="800"/>
-<br>
-<em>Comprehensive Income Analysis by PUMA Region</em>
-</td>
-</tr>
-</table>
-
-### Key Findings
-- **Eligibility Distribution**:
-  - Income Eligible (MBSAC): 7.3% of analyzed households
-  - Food Stamp Recipients: 81.4% of eligible households
-  - Public Assistance Recipients: 27.5% of eligible households
-
-- **Employment Patterns** (Among CalWORKs Eligible Population):
-  - Highest employment: PUMA 7513 (71.7%)
-  - Lowest employment: PUMA 7509 (36.4%)
-  - Regional average: ~52.8%
-
-- **Income Distribution** (CalWORKs Eligible):
-  - Peak median income: $8,033/month (PUMA 7512)
-  - Lowest median income: $1,350/month (PUMA 7509)
-  - Notable income inequality in regions 7512, 7513
-
-- **Housing Affordability** (Among Eligible Households):
-  - Best affordability: 24% rent-to-income (PUMA 7513)
-  - Worst affordability: 93% rent-to-income (PUMA 7508)
-  - Critical areas identified: PUMAs 7508, 7509
-
-Notes:
-- Eligibility based on Region 1 MBSAC thresholds (e.g., $899 for 1 person, $1,476 for 2 persons)
-- Income calculations exclude SSI, grants, EITC, and federal disaster benefits
-- $450 earned income disregard applied per working family member
-- Analysis considers both income eligibility and categorical eligibility (Food Stamps/Public Assistance)
-
-## 🎯 Project Goals
-
-1. **Eligibility Assessment**
-   - Automate CalWORKs eligibility determination
-   - Identify eligible households efficiently
-   - Reduce processing time and errors
-
-2. **Regional Analysis**
-   - Map income distribution patterns
-   - Identify affordability hotspots
-   - Track employment trends
-
-3. **Policy Insights**
-   - Support evidence-based decision making
-   - Identify areas needing intervention
-   - Monitor program effectiveness
-
-## 📈 Analysis Pipeline
-
-```mermaid
-graph LR
-    A[PUMS Data Input] --> B[Data Preprocessing]
-    B --> C[Eligibility Analysis]
-    C --> D[Income Analysis]
-    D --> E[Regional Analysis]
-    E --> F[Visualization]
-    
-    style A fill:#f9d5e5,stroke:#333
-    style B fill:#eeac99,stroke:#333
-    style C fill:#e06377,stroke:#333
-    style D fill:#c83349,stroke:#333
-    style E fill:#5b9aa0,stroke:#333
-    style F fill:#d6d4e0,stroke:#333
-```
-
-## 📈 Visualization Examples
-
-<table>
-<tr>
-<td>
-<img src="docs/images/income_analysis.png" alt="Income Analysis" width="400"/>
-<br>
-<em>Income Analysis by Region</em>
-</td>
-</tr>
-</table>
-
-## 🛠️ Technology Stack
-
-- **Data Processing**: pandas, numpy
-- **Statistical Analysis**: scipy
-- **Visualization**: matplotlib, seaborn
-- **Configuration**: PyYAML
-- **Testing**: pytest, coverage
-
-## 📖 Documentation
+**Documentation Links:**
 
 - [Installation Guide](docs/installation.md)
 - [Data Requirements](docs/data_requirements.md)
@@ -188,33 +25,140 @@ graph LR
 - [API Reference](docs/api_reference.md)
 - [Technical Specifications](docs/technical_specifications.md)
 
-## 🤝 Contributing
+</div>
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+## 📊 Overview
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Analysis execution time: 30.46 seconds
+
+### 🔄 Comparison Metrics (SF vs State)
+- Eligibility Rate Difference: -2.6%
+- Median Income Ratio: 1.41
+- Working Households Difference: 0.0%
+
+## 📈 State Analysis
+**Total Coverage: 167,262 households, 391,171 persons**
+
+### Eligibility Breakdown
+- Total Households: 167,262
+- CalWORKs Eligible: 46,396 (27.7%)
+- Income Eligible: 23.7%
+- Receiving Food Stamps: 11.3%
+- Receiving Public Assistance: 3.5%
+
+### 💰 Income Metrics
+- Median Monthly Income: $5,916.67
+- Mean Monthly Income: $9,128.79
+- Working Households: 114,635
+- Average Working Members: 1.20
+
+#### Monthly Income Distribution
+- Below $1,000: 4.7%
+- $1,000-$2,500: 8.6%
+- $2,500-$5,000: 14.0%
+- $5,000+: 55.3%
+
+#### Income Ranges
+- Minimum: -$1,366.67
+- 25th Percentile: $3,750.00
+- Median: $7,658.33
+- 75th Percentile: $13,750.00
+- Maximum: $187,250.00
+
+#### Average Monthly Income Sources
+- Public Assistance: $14.40
+- Retirement: $695.40
+- Interest: $646.83
+- Social Security: $521.04
+
+### 👥 Demographics
+- Average Household Size: 2.34
+- Household Size Distribution:
+  - 1 Person: 32.5%
+  - 2 Person: 27.2%
+  - 3-4 Person: 25.3%
+  - 5+ Person: 10.2%
+
+### 📋 Assistance Status
+- Food Stamps Recipients: 18,937
+- Public Assistance Recipients: 5,884
+- Average Monthly Benefits:
+  - Public Assistance: $409.33
+  - Food Stamps: $0.00
+  - Social Security: $0.00
+
+## 🌉 San Francisco Analysis
+**Regional Coverage: 4,479 households, 8,536 persons**
+
+### Eligibility Breakdown
+- Total Households: 4,479
+- CalWORKs Eligible: 1,127 (25.2%)
+- Income Eligible: 23.8%
+- Receiving Food Stamps: 11.7%
+- Receiving Public Assistance: 4.0%
+
+### 💰 Income Metrics
+- Median Monthly Income: $8,333.33
+- Mean Monthly Income: $13,910.20
+- Working Households: 3,157
+- Average Working Members: 1.18
+
+#### Monthly Income Distribution
+- Below $1,000: 23.2%
+- $1,000-$2,500: 7.0%
+- $2,500-$5,000: 8.1%
+- $5,000+: 61.7%
+
+#### Income Ranges (All Households)
+- Minimum: -$458.33
+- 25th Percentile: $1,250.00
+- Median: $8,333.33
+- 75th Percentile: $19,079.17
+- Maximum: $180,416.67
+
+#### Average Monthly Income Sources
+- Public Assistance: $16.21
+- Retirement: $561.26
+- Interest: $943.06
+- Social Security: $396.33
+
+### 👥 Demographics
+- Average Household Size: 1.91
+- Household Size Distribution:
+  - 1 Person: 41.4%
+  - 2 Person: 28.2%
+  - 3-4 Person: 18.6%
+  - 5+ Person: 5.0%
+
+### 📊 MBSAC Thresholds
+- Minimum: $899.00
+- Average: $1,352.34
+- Maximum: $5,154.00
+
+## 🛠️ Installation & Usage
+
+1. **Clone Repository**
+```bash
+git clone https://github.com/pawelsloboda5/calworks-analysis
+```
+
+2. **Setup Environment**
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+3. **Run Analysis**
+```bash
+python Script_python/main.py
+```
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
-
-- Data source: U.S. Census Bureau's Public Use Microdata Sample (PUMS)
-- Analysis focuses on San Francisco PUMA regions: 7507-7514
-- Special thanks to all contributors and maintainers
-
-## 📧 Contact
-
-Pawel Sloboda - [pawelsloboda5@gmail.com](mailto:pawelsloboda5@gmail.com)
-
-Project Link: [https://github.com/pawelsloboda5/calworks-analysis](https://github.com/pawelsloboda5/calworks-analysis)
-
 ---
 <div align="center">
-Made with ❤️ for the San Francisco community
-</div> 
+<strong>Supporting evidence-based housing policy in California</strong>
+</div>

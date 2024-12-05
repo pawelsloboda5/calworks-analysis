@@ -1,0 +1,180 @@
+{
+    "execution_time": "0:00:26.216028",
+    "state_summary": {
+        "total_households": 167262,
+        "total_persons": 391171,
+        "eligible_households": 167262,
+        "calworks_eligible": 46396,
+        "eligibility_breakdown": {
+            "total_rate": "100.0%",
+            "calworks_rate": "27.7%",
+            "income_eligible": "23.7%",
+            "receiving_food_stamps": "11.3%",
+            "receiving_public_assistance": "3.5%"
+        },
+        "income_metrics": {
+            "median_monthly": "$5,916.67",
+            "mean_monthly": "$9,128.79",
+            "working_households": 114635,
+            "avg_working_members": "1.20",
+            "income_sources": {
+                "Public Assistance": "$14.40",
+                "Retirement": "$695.40",
+                "Interest": "$646.83",
+                "Social Security": "$521.04"
+            }
+        },
+        "income_ranges": {
+            "all_households": {
+                "monthly": {
+                    "min": "$-1,366.67",
+                    "max": "$187,250.00",
+                    "p25": "$3,750.00",
+                    "p50": "$7,658.33",
+                    "p75": "$13,750.00"
+                },
+                "household_size": {
+                    "min": 0,
+                    "max": 20,
+                    "avg": "2.3"
+                },
+                "mbsac_thresholds": {
+                    "min": "$899.00",
+                    "max": "$7,002.00",
+                    "avg": "$1,516.67"
+                }
+            },
+            "calworks_eligible": {
+                "monthly": {
+                    "min": "$0.00",
+                    "max": "$119,166.67",
+                    "p25": "$0.00",
+                    "p50": "$108.33",
+                    "p75": "$2,500.00"
+                },
+                "household_size": {
+                    "min": 1,
+                    "max": 20,
+                    "avg": "2.1"
+                },
+                "mbsac_thresholds": {
+                    "min": "$899.00",
+                    "max": "$7,002.00",
+                    "avg": "$1,356.33"
+                }
+            }
+        },
+        "income_distribution": {
+            "below_1000": "4.7%",
+            "1000_2500": "8.6%",
+            "2500_5000": "14.0%",
+            "5000_plus": "55.3%"
+        },
+        "demographics": {
+            "avg_household_size": "2.34",
+            "household_size_distribution": {
+                "1_person": "32.5%",
+                "2_person": "27.2%",
+                "3_4_person": "25.3%",
+                "5_plus": "10.2%"
+            }
+        },
+        "assistance_status": {
+            "current_recipients": {
+                "food_stamps": "18,937",
+                "public_assistance": "5,884"
+            },
+            "average_monthly_benefits": {
+                "public_assistance": "$409.33",
+                "food_stamps": "$0.00",
+                "social_security": "$0.00"
+            }
+        }
+    },
+    "region_summary": {
+        "name": "San Francisco",
+        "total_households": 4479,
+        "total_persons": 8536,
+        "calworks_eligible": 1127,
+        "eligibility_breakdown": {
+            "total_rate": "100.0%",
+            "calworks_rate": "25.2%",
+            "income_eligible": "23.8%",
+            "receiving_food_stamps": "11.7%",
+            "receiving_public_assistance": "4.0%"
+        },
+        "income_metrics": {
+            "median_monthly": "$8,333.33",
+            "mean_monthly": "$13,910.20",
+            "working_households": 3157,
+            "avg_working_members": "1.18",
+            "income_sources": {
+                "Public Assistance": "$16.21",
+                "Retirement": "$561.26",
+                "Interest": "$943.06",
+                "Social Security": "$396.33"
+            }
+        },
+        "income_ranges": {
+            "all_households": {
+                "monthly": {
+                    "min": "$-458.33",
+                    "max": "$180,416.67",
+                    "p25": "$1,250.00",
+                    "p50": "$8,333.33",
+                    "p75": "$19,079.17"
+                },
+                "household_size": {
+                    "min": 0,
+                    "max": 14,
+                    "avg": "1.9"
+                },
+                "mbsac_thresholds": {
+                    "min": "$899.00",
+                    "max": "$5,154.00",
+                    "avg": "$1,352.34"
+                }
+            },
+            "calworks_eligible": {
+                "monthly": {
+                    "min": "$0.00",
+                    "max": "$69866.67",
+                    "mean": "$2947.06",
+                    "p25": "$0.00",
+                    "p50": "$0.00",
+                    "p75": "$1780.00"
+                },
+                "household_size": {
+                    "min": 1,
+                    "max": 14,
+                    "avg": "1.7"
+                },
+                "mbsac_thresholds": {
+                    "min": "$899.00",
+                    "max": "$5,154.00",
+                    "avg": "$1,211.11"
+                }
+            }
+        },
+        "income_distribution": {
+            "below_1000": "23.2%",
+            "1000_2500": "7.0%",
+            "2500_5000": "8.1%",
+            "5000_plus": "61.7%"
+        },
+        "demographics": {
+            "avg_household_size": "1.91",
+            "household_size_distribution": {
+                "1_person": "41.4%",
+                "2_person": "28.2%",
+                "3_4_person": "18.6%",
+                "5_plus": "5.0%"
+            }
+        }
+    },
+    "comparison_metrics": {
+        "eligibility_rate_difference": "-2.6%",
+        "median_income_ratio": "1.41",
+        "working_households_difference": "0.0%"
+    }
+}

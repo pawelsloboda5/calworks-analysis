@@ -1,0 +1,9 @@
+{
+    "timestamp": "20241204_042541",
+    "puma_range": "7507-7514",
+    "total_households": 167262,
+    "total_persons": 391171,
+    "mbsac_version": "2024_R1",
+    "pipeline_version": "1.1.2",
+    "config_hash": -1472759809441701623
+}

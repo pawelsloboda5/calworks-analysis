@@ -1,0 +1,14 @@
+Generated at: 2024-12-04 08:44:58
+
++--------------------------------+-------+
+|       Eligibility Metric       | Value |
++--------------------------------+-------+
+|        Total Households        | 4,479 |
+|       CalWORKs Eligible        | 1,127 |
+|   CalWORKs Eligibility Rate    | 25.2% |
+|                                |       |
+| Eligibility Criteria Breakdown |       |
+|        Income Eligible         | 23.8% |
+|      Food Stamps Eligible      | 11.7% |
+|   Public Assistance Eligible   |  4.0% |
++--------------------------------+-------+

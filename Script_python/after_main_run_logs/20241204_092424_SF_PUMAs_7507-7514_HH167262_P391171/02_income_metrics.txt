@@ -1,0 +1,10 @@
+Generated at: 2024-12-04 09:25:01
+
++-------------------------+-----------+
+|      Income Metric      |   Value   |
++-------------------------+-----------+
+|  Median Monthly Income  | $5,916.67 |
+|   Mean Monthly Income   | $9,128.79 |
+|    Working Households   |  114,635  |
+| Average Working Members |    1.20   |
++-------------------------+-----------+

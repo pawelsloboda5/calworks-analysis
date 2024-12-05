@@ -1,0 +1,10 @@
+Generated at: 2024-12-04 04:25:58
+
++------------------------+-------+
+|         Metric         | Value |
++------------------------+-------+
+|    Total Households    |  4178 |
+|     Total Persons      |  8536 |
+| Average Household Size |  2.04 |
+|      PUMA Regions      |   8   |
++------------------------+-------+

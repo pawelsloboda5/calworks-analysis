@@ -32,8 +32,8 @@ def plot_eligibility_breakdown(df: pd.DataFrame, output_dir: Path) -> None:
     # Calculate percentages
     stats = {
         'Income Eligible': (df['income_eligible'].mean() * 100),
-        'Receives Food Stamps': (df['food_stamps_eligible'].mean() * 100),
-        'Receives Public Assistance': (df['public_assistance_eligible'].mean() * 100)
+        'Receives Food Stamps': (df['food_stamps_receipent'].mean() * 100),
+        'Receives Public Assistance': (df['public_assistance_receipent'].mean() * 100)
     }
     
     # Create bar plot
