@@ -135,6 +135,135 @@ Analysis execution time: 30.46 seconds
 - Average: $1,352.34
 - Maximum: $5,154.00
 
+## 📊 Visualizations
+
+### Income Analysis
+<table>
+<tr>
+<td>
+<img src="Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/income_distribution.png" alt="Income Distribution" width="400"/>
+<br>
+<em>Income Distribution by CalWORKs Eligibility</em>
+</td>
+<td>
+<img src="Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/income_sources_breakdown.png" alt="Income Sources" width="400"/>
+<br>
+<em>Income Sources Breakdown</em>
+</td>
+</tr>
+</table>
+
+### Eligibility Analysis
+<table>
+<tr>
+<td>
+<img src="Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/eligibility_by_size.png" alt="Eligibility by Size" width="400"/>
+<br>
+<em>Eligibility Rates by Household Size</em>
+</td>
+<td>
+<img src="Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/eligibility_heatmap.png" alt="Eligibility Heatmap" width="400"/>
+<br>
+<em>Eligibility Heatmap by Income and Household Size</em>
+</td>
+</tr>
+</table>
+
+### Household Composition
+<table>
+<tr>
+<td>
+<img src="Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/household_composition_analysis.png" alt="Household Composition" width="800"/>
+<br>
+<em>Comprehensive Household Composition Analysis</em>
+</td>
+</tr>
+</table>
+
+### Interactive Visualizations
+The analysis also generates interactive Plotly visualizations:
+- 📊 [Eligibility Funnel](Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/plotly/eligibility_funnel.html)
+- 📈 [Income Distribution](Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/plotly/income_distribution.html)
+- 🌳 [Household Treemap](Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/plotly/household_treemap.html)
+- 📉 [Risk Analysis](Script_python/after_main_run_logs/20241204_092217_SF_PUMAs_7507-7514_HH167262_P391171/visualizations/plotly/risk_analysis.html)
+
+## ⚙️ Configuration & Customization
+
+The analysis pipeline is highly configurable through `Script_python/config.yaml`. This allows for quick adjustments to regions, thresholds, and data paths without code changes.
+
+### 🗺️ Regional Analysis
+```yaml
+regions:
+  default: "san_francisco"  # Change this to analyze different regions
+  definitions:
+    san_francisco:
+      name: "San Francisco"
+      puma_codes: [7507, 7508, 7509, 7510, 7511, 7512, 7513, 7514]
+      description: "San Francisco County PUMAs"
+    # Add your own regions:
+    # alameda:
+    #   name: "Alameda County"
+    #   puma_codes: [...]
+```
+
+### 💰 Income Configuration
+```yaml
+income:
+  earned_income_disregard: 450  # Adjustable income disregard
+  income_columns:
+    earned: ["WAGP", "SEMP"]    # Employment income sources
+    unearned: ["RETP", "INTP", "PAP", "SSP"]  # Other income sources
+```
+
+### 📊 MBSAC Thresholds
+```yaml
+mbsac_thresholds:
+  1: 899    # 1-person household
+  2: 1476   # 2-person household
+  3: 1829   # 3-person household
+  # ... continues
+  additional_person: 308  # Amount per additional person over 10
+```
+
+### 📁 Data Paths
+```yaml
+paths:
+  household_data: "data/hca_2022.csv"
+  person_data: "data/pca_2022.csv"
+  output_dir: "output"
+  plots_dir: "docs/images"
+```
+
+### 🔄 Quick Region Change
+To analyze a different region:
+
+1. Add your region to `config.yaml`:
+```yaml
+regions:
+  definitions:
+    your_region:
+      name: "Your Region Name"
+      puma_codes: [your_puma_codes]
+```
+
+2. Update the default region:
+```yaml
+regions:
+  default: "your_region"
+```
+
+3. Run the pipeline:
+```bash
+python Script_python/main.py
+```
+
+### 📋 Version Control
+```yaml
+pipeline:
+  version: "1.1.2"
+  state_code: 6  # California
+```
+
 ## 🛠️ Installation & Usage
 
 1. **Clone Repository**
